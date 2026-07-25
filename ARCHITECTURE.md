@@ -18,6 +18,7 @@ agent-guidance: Preserve working simplicity. Mark inference. Do not add framewor
 Stack of Turtles is a dependency-free static web app.
 
 ```text
+SCIENCE_RESEARCH.md
 index.html
 src/
   layers.js
@@ -35,13 +36,15 @@ context/
 
 `src/layers.js` owns the editable layer content as `window.STACK_LAYERS`. It is loaded as a classic script so direct file opening keeps working without a local server.
 
-`src/app.js` owns rendering behavior. It builds layer markup, tracks scroll position, updates active layer state, handles truth mode, and draws conceptual canvas scenes for each layer.
+`src/app.js` owns rendering behavior. It builds layer markup, tracks scroll position, updates active layer state, handles truth mode, handles climb/autoplay speed, and draws conceptual canvas scenes for each layer.
 
 `src/styles.css` owns the responsive interface, sticky stage, layer copy placement, navigation, controls, and canvas overlays.
 
 `context/stack-of-turtles.yaiml` is the app-context memory for product intent and science constraints.
 
 `context/physics-notes.md` is the human-readable science guardrail document.
+
+`SCIENCE_RESEARCH.md` is a required YAIML science-research document. Scale anchors and strengthened science claims in `src/layers.js` must be backed there.
 
 ## Data Flow
 
@@ -52,10 +55,13 @@ Scroll position selects the nearest layer section. Active layer state drives:
 - title text
 - thesis text
 - scale label
-- progress bar
+- exponent-based scale progress bar
 - nav current state
 - stability rule and optional caveat
+- scale anchor and source-anchor count
 - canvas drawing mode
+
+The climb control uses `requestAnimationFrame` to scroll the document at a speed derived from the slider. It does not replace manual scrolling.
 
 ## Invariants
 
@@ -63,13 +69,14 @@ Scroll position selects the nearest layer section. Active layer state drives:
 - The first user-visible surface is the app experience, not a marketing page.
 - Visuals are conceptual and should not imply exact physics simulation.
 - Scientific caveats belong in project memory and should become visible UI when they materially prevent misunderstanding.
+- Scientific scale and structure claims must be backed by `SCIENCE_RESEARCH.md` or explicitly marked as conceptual display anchors.
 - Static-file opening should continue to work unless the project intentionally adopts a build step.
 
 ## Known Violations Or Pressure Points
 
-- Layer data is not yet validated against the YAIML data model.
+- Layer data is not yet validated against the YAIML data model or `SCIENCE_RESEARCH.md`.
 - No automated visual regression exists.
-- No source/citation model exists yet.
+- The app exposes source counts and a document link, but does not yet render source details inline.
 
 ## Intended Near-Term Architecture
 

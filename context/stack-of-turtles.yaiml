@@ -34,6 +34,7 @@ experience_contract:
 
 science_contract:
   stance: conceptual_assembly_map
+  required_research_doc: SCIENCE_RESEARCH.md
   not:
     - full Standard Model simulator
     - exact chemistry engine
@@ -48,6 +49,7 @@ science_contract:
     - Chemistry is governed primarily by electron configuration and bonding.
     - Emergence should be framed as new organization, not magic.
   recurring_caveat: The app shows stable conceptual relationships, not literal object sizes or real-time dynamics.
+  source_rule: Every visible scientific scale or structure claim must be backed by SCIENCE_RESEARCH.md or explicitly labeled as a conceptual display anchor.
 
 narrative_spine:
   - id: fields
@@ -97,9 +99,11 @@ data_model:
       - id
       - title
       - scale
+      - scaleAnchor
       - thesis
       - ingredients
       - rule
+      - sourceIds
       - visual_mode
     optional:
       - caveats

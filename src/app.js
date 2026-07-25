@@ -11,7 +11,12 @@ const progress = document.getElementById("scaleProgress");
 const prevButton = document.getElementById("prevLayer");
 const nextButton = document.getElementById("nextLayer");
 const focusButton = document.getElementById("focusLayer");
+const playClimb = document.getElementById("playClimb");
+const speedRange = document.getElementById("speedRange");
+const speedValue = document.getElementById("speedValue");
 const truthMode = document.getElementById("truthMode");
+const detailScale = document.getElementById("detailScale");
+const detailSources = document.getElementById("detailSources");
 const detailRule = document.getElementById("detailRule");
 const detailCaveat = document.getElementById("detailCaveat");
 
@@ -20,6 +25,13 @@ let canvasWidth = 0;
 let canvasHeight = 0;
 let particles = [];
 let showCaveats = false;
+let isClimbing = false;
+let climbFrame = 0;
+let lastClimbTime = 0;
+let speedMultiplier = Number(speedRange.value);
+
+const minExponent = Math.min(...layers.map((layer) => layer.scaleAnchor.exponent));
+const maxExponent = Math.max(...layers.map((layer) => layer.scaleAnchor.exponent));
 
 function buildLayerMarkup() {
   layerStack.innerHTML = layers
@@ -32,6 +44,8 @@ function buildLayerMarkup() {
             <p>${layer.thesis}</p>
             <div class="layer-meta" aria-label="Ingredients">
               ${layer.ingredients.map((item) => `<span class="pill">${item}</span>`).join("")}
+              <span class="pill">${layer.scaleAnchor.label}</span>
+              <span class="pill">${layer.sourceIds.length} sources</span>
             </div>
             <p class="rule">${layer.rule}</p>
           </div>
@@ -100,10 +114,12 @@ function setActiveLayer(index) {
   title.textContent = layer.title;
   thesis.textContent = layer.thesis;
   scaleLabel.textContent = layer.scale;
+  detailScale.textContent = `${layer.scaleAnchor.label}: ${layer.scaleAnchor.basis}`;
+  detailSources.innerHTML = `<a href="SCIENCE_RESEARCH.md">${layer.sourceIds.length} source anchors</a>`;
   detailRule.textContent = layer.rule;
   detailCaveat.textContent = layer.caveat;
   detailCaveat.hidden = !showCaveats;
-  progress.style.width = `${(activeIndex / (layers.length - 1)) * 100}%`;
+  progress.style.width = `${getExponentProgress(layer)}%`;
   document.documentElement.style.setProperty("--focus", layer.accent);
 
   [...jumpNav.querySelectorAll("a")].forEach((link, index) => {
@@ -116,8 +132,56 @@ function setActiveLayer(index) {
 }
 
 function scrollToLayer(index) {
+  stopClimb();
   const layer = layers[Math.min(layers.length - 1, Math.max(0, index))];
   document.getElementById(layer.id)?.scrollIntoView({ block: "start", behavior: "smooth" });
+}
+
+function getExponentProgress(layer) {
+  const exponent = layer.scaleAnchor.exponent;
+  return ((exponent - minExponent) / (maxExponent - minExponent)) * 100;
+}
+
+function updateSpeedLabel() {
+  speedMultiplier = Number(speedRange.value);
+  speedValue.textContent = `${speedMultiplier.toFixed(2).replace(/\.00$/, ".0")}x`;
+}
+
+function startClimb() {
+  if (isClimbing) return;
+  isClimbing = true;
+  lastClimbTime = 0;
+  playClimb.textContent = "Pause";
+  playClimb.setAttribute("aria-pressed", "true");
+  climbFrame = window.requestAnimationFrame(climbStep);
+}
+
+function stopClimb() {
+  if (!isClimbing) return;
+  isClimbing = false;
+  lastClimbTime = 0;
+  playClimb.textContent = "Climb";
+  playClimb.setAttribute("aria-pressed", "false");
+  window.cancelAnimationFrame(climbFrame);
+}
+
+function climbStep(timestamp) {
+  if (!isClimbing) return;
+  if (!lastClimbTime) lastClimbTime = timestamp;
+
+  const elapsed = Math.min(64, timestamp - lastClimbTime) / 1000;
+  lastClimbTime = timestamp;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const pixelsPerSecond = 260 * speedMultiplier;
+
+  window.scrollBy({ top: pixelsPerSecond * elapsed, left: 0, behavior: "auto" });
+
+  if (window.scrollY >= maxScroll - 2) {
+    stopClimb();
+    return;
+  }
+
+  climbFrame = window.requestAnimationFrame(climbStep);
 }
 
 function draw() {
@@ -380,6 +444,7 @@ function circle(x, y, radius) {
 
 buildLayerMarkup();
 resizeCanvas();
+updateSpeedLabel();
 updateActiveLayer();
 
 window.addEventListener("resize", resizeCanvas);
@@ -391,6 +456,11 @@ window.addEventListener("scroll", () => {
 prevButton.addEventListener("click", () => scrollToLayer(activeIndex - 1));
 nextButton.addEventListener("click", () => scrollToLayer(activeIndex + 1));
 focusButton.addEventListener("click", () => scrollToLayer(activeIndex));
+playClimb.addEventListener("click", () => {
+  if (isClimbing) stopClimb();
+  else startClimb();
+});
+speedRange.addEventListener("input", updateSpeedLabel);
 truthMode.addEventListener("change", () => {
   showCaveats = truthMode.checked;
   setActiveLayer(activeIndex);

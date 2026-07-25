@@ -61,6 +61,7 @@ Used to syntax-check the layer content file.
 - `SOT.md`: current state, risks, priorities, verified checks, and uncertainty.
 - `ARCHITECTURE.md`: durable structure and invariants.
 - `MAINTAINER_GUIDE.md`: setup, commands, diagnostics, and maintenance conventions.
+- `SCIENCE_RESEARCH.md`: required source registry and claim rules for scientific scale/content changes.
 - `context/stack-of-turtles.yaiml`: app-specific intent and content contract.
 - `context/physics-notes.md`: science guardrails.
 - `index.html`: static app shell.
@@ -75,6 +76,8 @@ When a human says "update YAIML", "updated YAIML", "check new YAIML", or "run a 
 Do not hardcode local YAIML reference paths, local drive names, private workspace URIs, secrets, private chat transcripts, or sensitive raw logs into versioned YAIML files.
 
 After meaningful work, update only the affected YAIML documents. Prune stale state instead of appending forever.
+
+Science/content changes must also check `SCIENCE_RESEARCH.md`. If a visible scale, structure, or emergence claim changes, update or verify source IDs before changing `src/layers.js`.
 
 ## Diagnostics
 
