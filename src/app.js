@@ -12,7 +12,6 @@ const progress = document.getElementById("scaleProgress");
 const ordersValue = document.getElementById("ordersValue");
 const prevButton = document.getElementById("prevLayer");
 const nextButton = document.getElementById("nextLayer");
-const focusButton = document.getElementById("focusLayer");
 const playClimb = document.getElementById("playClimb");
 const speedRange = document.getElementById("speedRange");
 const speedValue = document.getElementById("speedValue");
@@ -221,7 +220,8 @@ function formatSpeed(value) {
 
 function renderSourcePanel(layer) {
   const sourceIds = layer.sourceIds || [];
-  sourceToggle.textContent = `${sourceIds.length} source anchor${sourceIds.length === 1 ? "" : "s"}`;
+  const sourceLabel = `${sourceIds.length} source anchor${sourceIds.length === 1 ? "" : "s"}`;
+  sourceToggle.textContent = `${sourcePanelOpen ? "hide" : "show"} ${sourceLabel}`;
   sourceToggle.setAttribute("aria-expanded", String(sourcePanelOpen));
   sourcePanel.hidden = !sourcePanelOpen;
 
@@ -587,7 +587,6 @@ window.addEventListener("scroll", () => {
 
 prevButton.addEventListener("click", () => scrollToLayer(activeIndex - 1));
 nextButton.addEventListener("click", () => scrollToLayer(activeIndex + 1));
-focusButton.addEventListener("click", () => scrollToLayer(activeIndex));
 playClimb.addEventListener("click", toggleClimb);
 speedRange.addEventListener("input", updateSpeedLabel);
 sourceToggle.addEventListener("click", () => {

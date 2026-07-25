@@ -4,7 +4,7 @@ Scroll outward through the layers of reality: fields, particles, hadrons, nuclei
 
 This is an HTML5 scrollytelling app for a bottom-up view of matter and emergence. It is not a physics simulation. It is a conceptual assembly map that keeps the scientific rules visible while letting the scale changes feel spatial.
 
-The current build includes a climb speed slider for moving outward through the stack, truth-mode caveats, source-backed scale anchors, and a light universe-age reference frame.
+The current build includes a climb speed slider for moving outward through the stack, truth-mode caveats, source-backed scale anchors, in-app source details, and a light universe-age reference frame.
 
 ## Run
 

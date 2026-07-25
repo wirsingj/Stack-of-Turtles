@@ -176,8 +176,12 @@ button {
 .hud {
   position: relative;
   z-index: 2;
-  width: min(38rem, calc(100% - 2rem));
-  padding: clamp(6.8rem, 15vh, 10rem) 0 0 clamp(1rem, 5vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(24rem, 39rem) minmax(20rem, 32rem);
+  align-items: end;
+  gap: clamp(2rem, 7vw, 7rem);
+  width: min(88rem, calc(100% - 2rem));
+  padding: clamp(6.6rem, 14vh, 8.5rem) clamp(1rem, 5vw, 5rem) 0;
 }
 
 .eyebrow {
@@ -197,7 +201,7 @@ h1 {
   letter-spacing: 0;
 }
 
-.hud p:not(.eyebrow) {
+.hero-copy > p:not(.eyebrow) {
   max-width: 35rem;
   margin: 1.2rem 0 0;
   color: var(--fg);
@@ -256,8 +260,10 @@ h1 {
 }
 
 .layer-detail {
-  width: min(29rem, 100%);
-  margin-top: 1rem;
+  width: min(32rem, 100%);
+  max-height: calc(100svh - 10rem);
+  overflow: auto;
+  margin-top: 0;
   padding: 0.9rem 1rem;
   border-left: 3px solid var(--focus);
   background: rgba(16, 17, 15, 0.5);
@@ -327,6 +333,10 @@ h1 {
   margin: -0.25rem 0 0.9rem;
 }
 
+.source-panel[hidden] {
+  display: none;
+}
+
 .source-item {
   display: grid;
   gap: 0.3rem;
@@ -365,6 +375,7 @@ h1 {
 
 .detail-caveat {
   margin-top: 0.65rem !important;
+  margin-bottom: 0.9rem !important;
   color: var(--gold);
   font-size: 0.92rem;
   line-height: 1.45;
@@ -463,6 +474,7 @@ h1 {
 }
 
 .layer-copy {
+  display: none;
   width: min(34rem, 100%);
   padding-left: 1rem;
   border-left: 3px solid var(--accent, var(--green));
@@ -530,6 +542,14 @@ h1 {
 
   .hud {
     padding-top: 7rem;
+    grid-template-columns: minmax(18rem, 1fr);
+    gap: 1rem;
+    width: min(40rem, calc(100% - 2rem));
+  }
+
+  .layer-detail {
+    max-height: none;
+    overflow: visible;
   }
 }
 
@@ -561,10 +581,7 @@ h1 {
   }
 
   .scale-readout {
-    left: 1rem;
-    right: 1rem;
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
+    display: none;
   }
 
   .layer {

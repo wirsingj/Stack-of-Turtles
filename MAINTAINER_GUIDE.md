@@ -73,6 +73,8 @@ node scripts/smoke-check.js
 
 Optional browser smoke check. It uses Playwright when available and skips gracefully when Playwright is not installed.
 
+Current smoke coverage includes direct `file://` loading, source drawer behavior, first-load hidden source panel, hidden scroll checkpoints, prev/next navigation, truth mode with mobile caveat visibility, climb control, horizontal-overflow checks at multiple viewport widths, and a 320px source-open overflow check.
+
 ## Important Files
 
 - `yaiml.yml`: discovery file for the YAIML project-memory loop.

@@ -31,35 +31,37 @@
         <div class="stage-shade" aria-hidden="true"></div>
 
         <div class="hud" aria-live="polite">
-          <p class="eyebrow" id="scaleLabel">10^-19 m</p>
-          <h1 id="layerTitle">Quantum fields</h1>
-          <p id="layerThesis">
-            The app starts with fields, then scrolls outward as stable structure
-            becomes the floor for the next layer.
-          </p>
-          <div class="controls" aria-label="Layer controls">
-            <button type="button" class="icon-button" id="prevLayer" aria-label="Previous layer">
-              <span aria-hidden="true">&larr;</span>
-            </button>
-            <button type="button" class="primary-button" id="focusLayer">Focus layer</button>
-            <button type="button" class="icon-button" id="nextLayer" aria-label="Next layer">
-              <span aria-hidden="true">&rarr;</span>
-            </button>
-            <button type="button" class="primary-button" id="playClimb" aria-pressed="false">Climb</button>
-            <label class="speed-control" for="speedRange">
-              <span>climb speed <output id="speedValue" for="speedRange">1.0x</output></span>
-              <input type="range" id="speedRange" min="0.25" max="3" value="1" step="0.25" />
-            </label>
-            <label class="truth-toggle" for="truthMode">
-              <input type="checkbox" id="truthMode" />
-              <span>truth mode</span>
-            </label>
+          <div class="hero-copy">
+            <p class="eyebrow" id="scaleLabel">10^-19 m</p>
+            <h1 id="layerTitle">Quantum fields</h1>
+            <p id="layerThesis">
+              The app starts with fields, then scrolls outward as stable structure
+              becomes the floor for the next layer.
+            </p>
+            <div class="controls" aria-label="Layer controls">
+              <button type="button" class="icon-button" id="prevLayer" aria-label="Previous layer">
+                <span aria-hidden="true">&larr;</span>
+              </button>
+              <button type="button" class="primary-button" id="playClimb" aria-pressed="false">Climb</button>
+              <button type="button" class="icon-button" id="nextLayer" aria-label="Next layer">
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+              <label class="speed-control" for="speedRange">
+                <span>climb speed <output id="speedValue" for="speedRange">1.0x</output></span>
+                <input type="range" id="speedRange" min="0.25" max="3" value="1" step="0.25" />
+              </label>
+              <label class="truth-toggle" for="truthMode">
+                <input type="checkbox" id="truthMode" />
+                <span>truth mode</span>
+              </label>
+            </div>
           </div>
           <aside class="layer-detail" id="layerDetail" aria-label="Current layer detail">
             <p class="detail-kicker">journey frame</p>
             <p id="detailFrame">
               Structural scale, not a literal timeline. Universe age reference: about 13.8 billion years.
             </p>
+            <p class="detail-caveat" id="detailCaveat" hidden></p>
             <p class="detail-kicker">scale anchor</p>
             <p id="detailScale"></p>
             <div class="source-line" id="detailSources">
@@ -77,7 +79,6 @@
             <div class="source-panel" id="sourcePanel" hidden></div>
             <p class="detail-kicker">stability rule</p>
             <p id="detailRule"></p>
-            <p class="detail-caveat" id="detailCaveat" hidden></p>
           </aside>
         </div>
 

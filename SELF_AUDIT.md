@@ -81,3 +81,27 @@ Status legend: `done`, `deferred`, `watch`, `pending-final`.
 | 58 | Run JS syntax checks. | `node --check`. | done |
 | 59 | Run diff whitespace check. | `git diff --check`. | done |
 | 60 | Re-check clean worktree after push. | `git status --short --branch`. | done |
+
+## UX Deepening Pass 2026-07-25
+
+Reason: Human clarified that the previous seven-minute pass was not deep enough and that the app must not feel like a broken or throwaway experience.
+
+| # | Analyze | Change | Audit |
+| ---: | --- | --- | --- |
+| 61 | First viewport must feel like one coherent experience. | Re-audited desktop and mobile screenshots. | done |
+| 62 | Duplicate scroll-section layer copy competed with the HUD. | Hide `.layer-copy`; use sections as invisible scroll checkpoints. | done |
+| 63 | Source panel appeared open by default because CSS overrode `[hidden]`. | Add `.source-panel[hidden] { display: none; }`. | done |
+| 64 | Desktop detail content was pushed below the first viewport. | Convert HUD to two-column desktop cockpit. | done |
+| 65 | Mobile controls were too crowded. | Remove vague `Focus layer` button. | done |
+| 66 | Source drawer must still be inspectable after layout changes. | Verify expanded source state in screenshot and smoke check. | done |
+| 67 | Prev/next story controls might break when checkpoint copy is hidden. | Add prev/next assertions to smoke check. | done |
+| 68 | Hidden source panel regression should be caught automatically. | Add first-load hidden source-panel assertion. | done |
+| 69 | Duplicate checkpoint visibility regression should be caught automatically. | Add `.layer-copy` invisibility assertion. | done |
+| 70 | Small viewport layout should not horizontally overflow. | Add smoke assertions at 1440, 1024, 768, 390, and 320 widths. | done |
+| 71 | Mobile scale rail was off-screen and not useful. | Hide `.scale-readout` under 620px. | done |
+| 72 | Temporary screenshot artifacts should not pollute repo. | Remove `.ux-audit-tmp*` folders after inspection. | done |
+| 73 | Full-page screenshots overstate blank scroll-checkpoint space. | Switch final QA to viewport screenshots at actual interaction states. | done |
+| 74 | Truth mode changed state but its caveat started below the phone viewport. | Move the caveat directly after the journey frame when enabled. | done |
+| 75 | Truth-mode visibility can regress silently on small screens. | Add smoke assertion that the caveat is inside the 390px mobile viewport. | done |
+| 76 | Narrow source drawer can overflow even when closed layout passes. | Add 320px source-open overflow assertion. | done |
+| 77 | Source drawer can open below the phone fold without obvious feedback. | Change source toggle copy to `show`/`hide` source anchors. | done |

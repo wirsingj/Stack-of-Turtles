@@ -44,7 +44,7 @@ context/
 
 `src/app.js` owns rendering behavior. It builds layer markup, validates layer/source data, tracks scroll position, updates active layer state, handles truth mode, handles the source drawer, handles climb/autoplay speed, and draws conceptual canvas scenes for each layer.
 
-`src/styles.css` owns the responsive interface, sticky stage, layer copy placement, navigation, controls, and canvas overlays.
+`src/styles.css` owns the responsive interface, sticky stage, navigation, controls, detail cockpit, hidden scroll checkpoints, and canvas overlays.
 
 `context/stack-of-turtles.yaiml` is the app-context memory for product intent and science constraints.
 
@@ -59,6 +59,8 @@ context/
 ## Data Flow
 
 Source metadata is loaded from `src/sources.js`. Layer data is loaded from `src/layers.js`. `src/app.js` validates both, renders layer markup and source details, then uses scroll state to update the heads-up display and canvas mode.
+
+Layer sections are scroll checkpoints. Their duplicate text copy is intentionally hidden so it does not compete with the HUD.
 
 Scroll position selects the nearest layer section. Active layer state drives:
 
@@ -78,6 +80,7 @@ The climb control uses `requestAnimationFrame` to scroll the document at a speed
 
 - The app starts at the smallest described layer and scrolls outward.
 - The first user-visible surface is the app experience, not a marketing page.
+- The HUD is the visible layer experience; scroll checkpoint content should not visually duplicate it.
 - Visuals are conceptual and should not imply exact physics simulation.
 - Scientific caveats belong in project memory and should become visible UI when they materially prevent misunderstanding.
 - Scientific scale and structure claims must be backed by `SCIENCE_RESEARCH.md` or explicitly marked as conceptual display anchors.

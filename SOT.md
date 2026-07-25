@@ -62,9 +62,9 @@ No existing agent instruction files were found during YAIML init. Checked for co
 ## Recent Verified Checks
 
 - `node scripts/validate-data.js`: passed; validated 10 layers and 20 sources.
-- `node scripts/smoke-check.js`: passed; loaded the app from `file://`, opened source anchors, enabled truth mode, exercised climb, and checked a mobile viewport.
+- `node scripts/smoke-check.js`: passed; loaded the app from `file://`, opened source anchors, verified source panel hidden on first load, verified scroll checkpoints do not visually compete with the HUD, exercised prev/next, enabled truth mode with mobile caveat visibility, exercised climb, checked multiple viewport widths, and checked 320px source-open overflow.
 - `node --check src/app.js`, `src/layers.js`, `src/sources.js`, `scripts/validate-data.js`, and `scripts/smoke-check.js`: passed.
-- Temporary Playwright screenshots inspected at 1280x800 and 390x780; layout was usable, controls wrapped, and truth-mode detail was visible on mobile. Temporary images were removed.
+- Temporary Playwright screenshots inspected at desktop, tablet, and mobile widths. UX fixes removed duplicate layer content, fixed hidden source-panel state, simplified controls, moved desktop detail into a two-column cockpit, lifted truth caveats earlier on mobile, and added show/hide feedback to source anchors. Temporary images were removed.
 
 ## Evidence Inspected
 
@@ -89,6 +89,7 @@ No existing agent instruction files were found during YAIML init. Checked for co
 - No package manager, test runner, formatter, or browser automation setup is committed yet.
 - `SCIENCE_RESEARCH.md` and `src/sources.js` can still drift unless `node scripts/validate-data.js` is run after content changes.
 - Browser smoke QA and temporary screenshot inspection exist, but no persistent screenshot artifact or visual regression baseline has been committed yet.
+- Scroll checkpoint sections are intentionally invisible; the HUD is the visible experience surface.
 
 ## Immediate Priorities
 
