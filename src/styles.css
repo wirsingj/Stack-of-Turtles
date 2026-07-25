@@ -269,11 +269,16 @@ h1 {
 }
 
 .layer-detail #detailScale,
+.layer-detail #detailFrame,
 .source-line {
   margin-top: 0.35rem;
   color: var(--fg);
   font-size: 0.98rem;
   line-height: 1.45;
+}
+
+.layer-detail #detailFrame {
+  margin-bottom: 0.9rem;
 }
 
 .source-line {

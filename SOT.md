@@ -27,6 +27,7 @@ The declared human framing is bottom-up, not top-down: start at the lowest descr
 - `src/styles.css` provides responsive dark UI styling.
 - The app includes a truth mode toggle that reveals per-layer caveats in the active layer detail area.
 - The app includes a climb/autoplay control with a speed slider for moving outward through the scale gradient.
+- The app includes a cosmic-age reference in the UI: about 13.8 billion years, explicitly framed as a present universe-age horizon rather than a chronological mapping of the structural stack.
 - Layer scale anchors and source IDs are stored in `src/layers.js`.
 - `SCIENCE_RESEARCH.md` is a required YAIML science document for scale and structure claims.
 - `context/stack-of-turtles.yaiml` stores project intent, audience, experience contract, science contract, narrative spine, data model, and roadmap.
@@ -39,6 +40,7 @@ The declared human framing is bottom-up, not top-down: start at the lowest descr
 - Make the scroll direction feel outward.
 - Keep visuals conceptual and honest rather than claiming exact simulation.
 - Treat scientific scales as source-backed anchors or explicitly marked conceptual boundaries.
+- Keep "age of universe" UI language as a reference frame unless a real timeline mode is separately sourced.
 - Preserve the playful/philosophical identity of "Stack of Turtles" while keeping scientific claims careful.
 
 ## Agent Instructions
@@ -62,6 +64,7 @@ No existing agent instruction files were found during YAIML init. Checked for co
 - `node --check src/app.js`: passed after adding climb speed controls and scale-anchor UI.
 - `node --check src/layers.js`: passed after adding `scaleAnchor` and `sourceIds` to every layer.
 - Inline Node consistency check: passed; all 10 layers have numeric scale anchors and every `sourceIds` entry appears in `SCIENCE_RESEARCH.md`.
+- Web research inspected NASA and ESA references for the 13.8-billion-year universe-age frame.
 
 ## Evidence Inspected
 

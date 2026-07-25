@@ -59,6 +59,7 @@ Scroll position selects the nearest layer section. Active layer state drives:
 - nav current state
 - stability rule and optional caveat
 - scale anchor and source-anchor count
+- journey frame and universe-age reference
 - canvas drawing mode
 
 The climb control uses `requestAnimationFrame` to scroll the document at a speed derived from the slider. It does not replace manual scrolling.
@@ -70,6 +71,7 @@ The climb control uses `requestAnimationFrame` to scroll the document at a speed
 - Visuals are conceptual and should not imply exact physics simulation.
 - Scientific caveats belong in project memory and should become visible UI when they materially prevent misunderstanding.
 - Scientific scale and structure claims must be backed by `SCIENCE_RESEARCH.md` or explicitly marked as conceptual display anchors.
+- Universe-age UI is a reference horizon, not a chronological interpretation of layer order.
 - Static-file opening should continue to work unless the project intentionally adopts a build step.
 
 ## Known Violations Or Pressure Points

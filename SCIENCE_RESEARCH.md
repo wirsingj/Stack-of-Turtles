@@ -75,6 +75,12 @@ https://www.ncbi.nlm.nih.gov/books/NBK554382/
 `science-contract`: Internal Stack of Turtles science contract. Supports careful wording when primary science does not settle a philosophical or explanatory claim.  
 context/physics-notes.md
 
+`nasa-cosmic-history`: NASA Science universe overview. Supports an approximate 13.8-billion-year cosmic-history frame and the uncertainty around what came before inflation.
+URL: https://science.nasa.gov/universe/overview/
+
+`esa-planck-age`: ESA Planck mission result. Supports Planck-derived universe age values around 13.8 billion years.
+URL: https://www.esa.int/Science_Exploration/Space_Science/Planck/Planck_reveals_an_almost_perfect_Universe
+
 ## Scale Anchors
 
 | Layer | App anchor | Status | Required source IDs |
@@ -90,6 +96,12 @@ context/physics-notes.md
 | Organisms | 10^-2 to 10^0 m | Human-scale app anchor; not universal organism size | `ncbi-eukaryotic-cell-size`, `ncbi-histology-cell` |
 | Minds | 10^0 m and outward | Physical-continuity/social-scale anchor; not a consciousness solution | `ncbi-histology-cell`, `science-contract` |
 
+## Cosmic Age Frame
+
+The app may use "about 13.8 billion years" as a current accepted universe-age reference backed by `nasa-cosmic-history` and `esa-planck-age`.
+
+Do not imply that the structural layer stack is itself a chronological cosmic timeline. If the app later adds a true timeline mode, it needs separate sourced events such as nucleosynthesis, recombination, first stars, Earth formation, earliest life, multicellular life, and humans.
+
 ## Claim Rules
 
 - Use "anchor", "order of magnitude", or "range" for scale labels unless the value is a named measured constant.
@@ -98,6 +110,7 @@ context/physics-notes.md
 - Do not say protons/neutrons are only three quarks; say valence quarks plus gluon/QCD dynamics when truth mode or caveats are visible.
 - Do not imply cells, organisms, or minds are explained away by lower levels.
 - Do not claim the app proves an origin-of-life mechanism or theory of consciousness.
+- Do not convert the scale stack into a timeline unless each chronological event has its own source-backed anchor.
 
 ## Update Procedure
 
