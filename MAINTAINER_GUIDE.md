@@ -55,6 +55,24 @@ node --check src/layers.js
 
 Used to syntax-check the layer content file.
 
+```powershell
+node --check src/sources.js
+```
+
+Used to syntax-check the browser source registry.
+
+```powershell
+node scripts/validate-data.js
+```
+
+Used to validate layer/source/science-doc consistency.
+
+```powershell
+node scripts/smoke-check.js
+```
+
+Optional browser smoke check. It uses Playwright when available and skips gracefully when Playwright is not installed.
+
 ## Important Files
 
 - `yaiml.yml`: discovery file for the YAIML project-memory loop.
@@ -62,9 +80,11 @@ Used to syntax-check the layer content file.
 - `ARCHITECTURE.md`: durable structure and invariants.
 - `MAINTAINER_GUIDE.md`: setup, commands, diagnostics, and maintenance conventions.
 - `SCIENCE_RESEARCH.md`: required source registry and claim rules for scientific scale/content changes.
+- `SELF_AUDIT.md`: counted analyze/change/audit ledger for long self-audit passes.
 - `context/stack-of-turtles.yaiml`: app-specific intent and content contract.
 - `context/physics-notes.md`: science guardrails.
 - `index.html`: static app shell.
+- `src/sources.js`: browser-readable source metadata used by the in-app source drawer.
 - `src/layers.js`: layer content, visual mode IDs, and truth-mode caveats.
 - `src/app.js`: app behavior and canvas rendering.
 - `src/styles.css`: app presentation.
@@ -84,7 +104,9 @@ Science/content changes must also check `SCIENCE_RESEARCH.md`. If a visible scal
 If the app opens but the scene is blank:
 
 - Check browser console errors.
+- Run `node scripts/validate-data.js`.
 - Run `node --check src/app.js`.
+- Run `node --check src/sources.js`.
 - Run `node --check src/layers.js`.
 - Confirm `index.html` references the expected script files.
 
@@ -95,6 +117,6 @@ If direct file opening stops working:
 
 ## Unverified Procedures
 
-- No automated browser smoke test is committed yet.
+- No screenshot-based visual regression is committed yet.
 - No deployment or hosting procedure is committed yet.
 - No formatting command is committed yet.

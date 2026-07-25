@@ -94,6 +94,13 @@ narrative_spine:
     unlocks: shared reality models
 
 data_model:
+  source:
+    required:
+      - id
+      - title
+      - kind
+      - url
+      - supports
   layer:
     required:
       - id
@@ -104,7 +111,7 @@ data_model:
       - ingredients
       - rule
       - sourceIds
-      - visual_mode
+      - mode
     optional:
       - caveats
       - suggested_interactions
@@ -117,8 +124,8 @@ roadmap:
     - YAIML context
     - first git commit
   next:
-    - add source panel
-    - add truth-mode caveats
+    - add screenshot-based visual QA
+    - decide whether to generate source and layer scripts from YAIML/Markdown
     - add editable layer data
     - add WebGL depth scenes
     - publish hosted build

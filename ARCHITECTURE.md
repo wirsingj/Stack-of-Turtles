@@ -21,9 +21,13 @@ Stack of Turtles is a dependency-free static web app.
 SCIENCE_RESEARCH.md
 index.html
 src/
+  sources.js
   layers.js
   app.js
   styles.css
+scripts/
+  validate-data.js
+  smoke-check.js
 context/
   stack-of-turtles.yaiml
   physics-notes.md
@@ -34,9 +38,11 @@ context/
 
 `index.html` defines the document shell, sticky visualization stage, layer container, navigation targets, and script/style entry points.
 
+`src/sources.js` owns browser-readable science source metadata as `window.STACK_SOURCES`. It is loaded as a classic script so direct file opening keeps working without a local server.
+
 `src/layers.js` owns the editable layer content as `window.STACK_LAYERS`. It is loaded as a classic script so direct file opening keeps working without a local server.
 
-`src/app.js` owns rendering behavior. It builds layer markup, tracks scroll position, updates active layer state, handles truth mode, handles climb/autoplay speed, and draws conceptual canvas scenes for each layer.
+`src/app.js` owns rendering behavior. It builds layer markup, validates layer/source data, tracks scroll position, updates active layer state, handles truth mode, handles the source drawer, handles climb/autoplay speed, and draws conceptual canvas scenes for each layer.
 
 `src/styles.css` owns the responsive interface, sticky stage, layer copy placement, navigation, controls, and canvas overlays.
 
@@ -46,9 +52,13 @@ context/
 
 `SCIENCE_RESEARCH.md` is a required YAIML science-research document. Scale anchors and strengthened science claims in `src/layers.js` must be backed there.
 
+`scripts/validate-data.js` validates the layer/source/science-doc contract without a browser.
+
+`scripts/smoke-check.js` optionally uses Playwright when available to verify the static app opens, source anchors expand, truth mode reveals caveats, climb can run, and a mobile viewport still renders.
+
 ## Data Flow
 
-Layer data is loaded from `src/layers.js`, read by `src/app.js`, rendered into the layer stack and nav, then used by scroll state to update the heads-up display and canvas mode.
+Source metadata is loaded from `src/sources.js`. Layer data is loaded from `src/layers.js`. `src/app.js` validates both, renders layer markup and source details, then uses scroll state to update the heads-up display and canvas mode.
 
 Scroll position selects the nearest layer section. Active layer state drives:
 
@@ -58,7 +68,7 @@ Scroll position selects the nearest layer section. Active layer state drives:
 - exponent-based scale progress bar
 - nav current state
 - stability rule and optional caveat
-- scale anchor and source-anchor count
+- scale anchor, source-anchor count, and expandable source details
 - journey frame and universe-age reference
 - canvas drawing mode
 
@@ -76,9 +86,9 @@ The climb control uses `requestAnimationFrame` to scroll the document at a speed
 
 ## Known Violations Or Pressure Points
 
-- Layer data is not yet validated against the YAIML data model or `SCIENCE_RESEARCH.md`.
-- No automated visual regression exists.
-- The app exposes source counts and a document link, but does not yet render source details inline.
+- Layer data is validated by script and at runtime, but not by a formal schema.
+- `SCIENCE_RESEARCH.md` and `src/sources.js` duplicate source metadata.
+- No screenshot-based visual regression exists.
 
 ## Intended Near-Term Architecture
 

@@ -1,4 +1,5 @@
-const layers = window.STACK_LAYERS;
+const layers = Array.isArray(window.STACK_LAYERS) ? window.STACK_LAYERS : [];
+const sources = window.STACK_SOURCES || {};
 
 const canvas = document.getElementById("scaleCanvas");
 const ctx = canvas.getContext("2d");
@@ -8,6 +9,7 @@ const title = document.getElementById("layerTitle");
 const thesis = document.getElementById("layerThesis");
 const scaleLabel = document.getElementById("scaleLabel");
 const progress = document.getElementById("scaleProgress");
+const ordersValue = document.getElementById("ordersValue");
 const prevButton = document.getElementById("prevLayer");
 const nextButton = document.getElementById("nextLayer");
 const focusButton = document.getElementById("focusLayer");
@@ -15,8 +17,11 @@ const playClimb = document.getElementById("playClimb");
 const speedRange = document.getElementById("speedRange");
 const speedValue = document.getElementById("speedValue");
 const truthMode = document.getElementById("truthMode");
+const auditStatus = document.getElementById("auditStatus");
 const detailScale = document.getElementById("detailScale");
 const detailSources = document.getElementById("detailSources");
+const sourceToggle = document.getElementById("sourceToggle");
+const sourcePanel = document.getElementById("sourcePanel");
 const detailRule = document.getElementById("detailRule");
 const detailCaveat = document.getElementById("detailCaveat");
 
@@ -29,11 +34,26 @@ let isClimbing = false;
 let climbFrame = 0;
 let lastClimbTime = 0;
 let speedMultiplier = Number(speedRange.value);
+let sourcePanelOpen = false;
 
-const minExponent = Math.min(...layers.map((layer) => layer.scaleAnchor.exponent));
-const maxExponent = Math.max(...layers.map((layer) => layer.scaleAnchor.exponent));
+const minExponent = layers.length ? Math.min(...layers.map((layer) => layer.scaleAnchor.exponent)) : 0;
+const maxExponent = layers.length ? Math.max(...layers.map((layer) => layer.scaleAnchor.exponent)) : 1;
+const projectIssues = validateProjectData();
 
 function buildLayerMarkup() {
+  if (!layers.length) {
+    layerStack.innerHTML = `
+      <article class="layer">
+        <div class="layer-copy">
+          <p class="eyebrow">data missing</p>
+          <h2>Layer data did not load</h2>
+          <p>Check that <code>src/sources.js</code> and <code>src/layers.js</code> load before <code>src/app.js</code>.</p>
+        </div>
+      </article>
+    `;
+    return;
+  }
+
   layerStack.innerHTML = layers
     .map(
       (layer, index) => `
@@ -108,6 +128,8 @@ function updateActiveLayer() {
 }
 
 function setActiveLayer(index) {
+  if (!layers.length) return;
+
   activeIndex = Math.min(layers.length - 1, Math.max(0, index));
   const layer = layers[activeIndex];
 
@@ -115,11 +137,12 @@ function setActiveLayer(index) {
   thesis.textContent = layer.thesis;
   scaleLabel.textContent = layer.scale;
   detailScale.textContent = `${layer.scaleAnchor.label}: ${layer.scaleAnchor.basis}`;
-  detailSources.innerHTML = `<a href="SCIENCE_RESEARCH.md">${layer.sourceIds.length} source anchors</a>`;
+  renderSourcePanel(layer);
   detailRule.textContent = layer.rule;
   detailCaveat.textContent = layer.caveat;
   detailCaveat.hidden = !showCaveats;
   progress.style.width = `${getExponentProgress(layer)}%`;
+  ordersValue.textContent = `${Math.max(0, layer.scaleAnchor.exponent - minExponent)} orders outward`;
   document.documentElement.style.setProperty("--focus", layer.accent);
 
   [...jumpNav.querySelectorAll("a")].forEach((link, index) => {
@@ -133,6 +156,7 @@ function setActiveLayer(index) {
 
 function scrollToLayer(index) {
   stopClimb();
+  if (!layers.length) return;
   const layer = layers[Math.min(layers.length - 1, Math.max(0, index))];
   document.getElementById(layer.id)?.scrollIntoView({ block: "start", behavior: "smooth" });
 }
@@ -144,16 +168,23 @@ function getExponentProgress(layer) {
 
 function updateSpeedLabel() {
   speedMultiplier = Number(speedRange.value);
-  speedValue.textContent = `${speedMultiplier.toFixed(2).replace(/\.00$/, ".0")}x`;
+  speedValue.textContent = `${formatSpeed(speedMultiplier)}x`;
 }
 
 function startClimb() {
   if (isClimbing) return;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (window.scrollY >= maxScroll - 2) window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   isClimbing = true;
   lastClimbTime = 0;
   playClimb.textContent = "Pause";
   playClimb.setAttribute("aria-pressed", "true");
   climbFrame = window.requestAnimationFrame(climbStep);
+}
+
+function toggleClimb() {
+  if (isClimbing) stopClimb();
+  else startClimb();
 }
 
 function stopClimb() {
@@ -182,6 +213,106 @@ function climbStep(timestamp) {
   }
 
   climbFrame = window.requestAnimationFrame(climbStep);
+}
+
+function formatSpeed(value) {
+  return value.toFixed(2).replace(/0$/, "").replace(/\.0$/, ".0");
+}
+
+function renderSourcePanel(layer) {
+  const sourceIds = layer.sourceIds || [];
+  sourceToggle.textContent = `${sourceIds.length} source anchor${sourceIds.length === 1 ? "" : "s"}`;
+  sourceToggle.setAttribute("aria-expanded", String(sourcePanelOpen));
+  sourcePanel.hidden = !sourcePanelOpen;
+
+  const renderedSources = sourceIds.map((sourceId) => ({
+    id: sourceId,
+    source: sources[sourceId],
+  }));
+
+  sourcePanel.innerHTML = renderedSources
+    .map(({ id, source }) => {
+      if (!source) {
+        return `
+          <article class="source-item source-item-missing">
+            <strong>${escapeHtml(id)}</strong>
+            <span>Missing from source registry.</span>
+          </article>
+        `;
+      }
+
+      const url = escapeHtml(source.url);
+      const isExternal = /^https?:\/\//.test(source.url);
+      const target = isExternal ? ' target="_blank" rel="noreferrer"' : "";
+
+      return `
+        <article class="source-item">
+          <div>
+            <strong>${escapeHtml(source.title)}</strong>
+            <span>${escapeHtml(source.kind)}</span>
+          </div>
+          <p>${escapeHtml(source.supports)}</p>
+          <a href="${url}"${target}>Open source</a>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function validateProjectData() {
+  const issues = [];
+  const ids = new Set();
+
+  if (!layers.length) issues.push("No layers loaded.");
+
+  layers.forEach((layer, index) => {
+    if (!layer.id) issues.push(`Layer ${index + 1} is missing id.`);
+    if (ids.has(layer.id)) issues.push(`Duplicate layer id: ${layer.id}.`);
+    ids.add(layer.id);
+
+    if (!layer.title) issues.push(`${layer.id}: missing title.`);
+    if (!layer.scaleAnchor || typeof layer.scaleAnchor.exponent !== "number") {
+      issues.push(`${layer.id}: missing numeric scaleAnchor.exponent.`);
+    }
+    if (!Array.isArray(layer.sourceIds) || !layer.sourceIds.length) {
+      issues.push(`${layer.id}: missing sourceIds.`);
+    } else {
+      layer.sourceIds.forEach((sourceId) => {
+        if (!sources[sourceId]) issues.push(`${layer.id}: unknown source ${sourceId}.`);
+      });
+    }
+    if (!layer.mode) issues.push(`${layer.id}: missing visual mode.`);
+  });
+
+  Object.entries(sources).forEach(([sourceId, source]) => {
+    if (!source.title) issues.push(`${sourceId}: source missing title.`);
+    if (!source.url) issues.push(`${sourceId}: source missing url.`);
+    if (!source.supports) issues.push(`${sourceId}: source missing supports.`);
+  });
+
+  return issues;
+}
+
+function updateAuditStatus() {
+  const count = Object.keys(sources).length;
+  if (!projectIssues.length) {
+    auditStatus.textContent = `${count} sources checked`;
+    auditStatus.classList.remove("audit-status-warning");
+    return;
+  }
+
+  auditStatus.textContent = `${projectIssues.length} source issues`;
+  auditStatus.classList.add("audit-status-warning");
+  console.warn("Stack of Turtles data validation issues:", projectIssues);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function draw() {
@@ -445,6 +576,7 @@ function circle(x, y, radius) {
 buildLayerMarkup();
 resizeCanvas();
 updateSpeedLabel();
+updateAuditStatus();
 updateActiveLayer();
 
 window.addEventListener("resize", resizeCanvas);
@@ -456,18 +588,28 @@ window.addEventListener("scroll", () => {
 prevButton.addEventListener("click", () => scrollToLayer(activeIndex - 1));
 nextButton.addEventListener("click", () => scrollToLayer(activeIndex + 1));
 focusButton.addEventListener("click", () => scrollToLayer(activeIndex));
-playClimb.addEventListener("click", () => {
-  if (isClimbing) stopClimb();
-  else startClimb();
-});
+playClimb.addEventListener("click", toggleClimb);
 speedRange.addEventListener("input", updateSpeedLabel);
+sourceToggle.addEventListener("click", () => {
+  sourcePanelOpen = !sourcePanelOpen;
+  setActiveLayer(activeIndex);
+});
 truthMode.addEventListener("change", () => {
   showCaveats = truthMode.checked;
   setActiveLayer(activeIndex);
 });
 
+window.addEventListener("wheel", stopClimb, { passive: true });
+window.addEventListener("touchstart", stopClimb, { passive: true });
+
 window.addEventListener("keydown", (event) => {
+  const target = event.target;
+  if (["INPUT", "BUTTON", "A"].includes(target.tagName)) return;
   if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === " ") {
+    event.preventDefault();
+    toggleClimb();
+  }
   if (event.key === "ArrowLeft") scrollToLayer(activeIndex - 1);
   if (event.key === "ArrowRight") scrollToLayer(activeIndex + 1);
 });

@@ -19,6 +19,9 @@ documents:
     title: Science Research
 
 supporting_documents:
+  self_audit:
+    path: SELF_AUDIT.md
+    title: Self Audit
   app_context:
     path: context/stack-of-turtles.yaiml
     title: Stack of Turtles App Context

@@ -24,9 +24,13 @@ Then open `http://localhost:5173`.
 SCIENCE_RESEARCH.md
 index.html
 src/
+  sources.js
   layers.js
   app.js
   styles.css
+scripts/
+  validate-data.js
+  smoke-check.js
 context/
   stack-of-turtles.yaiml
   physics-notes.md
@@ -41,6 +45,16 @@ context/
 - Make the app usable as a static web page before adding frameworks or hosting.
 - Keep layer content editable without digging through rendering code.
 - Require science claims and scale anchors to be backed in `SCIENCE_RESEARCH.md`.
+- Make source anchors inspectable in the app without requiring a server.
+
+## Checks
+
+```powershell
+node scripts/validate-data.js
+node scripts/smoke-check.js
+```
+
+The smoke check uses Playwright when it is available in the local environment. The app itself remains dependency-free.
 
 ## Next Candidates
 

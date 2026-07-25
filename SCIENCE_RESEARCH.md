@@ -19,6 +19,8 @@ Every visible scientific scale or structure claim in the app must be backed by a
 
 If a layer uses an approximate order of magnitude, record the reason for the approximation. Do not turn a conceptual boundary into a measured object size.
 
+The browser source registry in `src/sources.js` must stay aligned with source IDs used in `src/layers.js` and source entries recorded here.
+
 ## Source Registry
 
 `cern-standard-model`: CERN Standard Model overview. Supports elementary particles, quarks/leptons, force carriers, and the Standard Model framing.  
@@ -117,7 +119,8 @@ Do not imply that the structural layer stack is itself a chronological cosmic ti
 When adding or changing a layer in `src/layers.js`:
 
 1. Add or reuse source IDs here.
-2. Add a scale anchor and mark whether it is measured, order-of-magnitude, or conceptual.
-3. Add at least one caveat if a normal viewer could read the visual literally.
-4. Run `node --check src/layers.js` and `node --check src/app.js`.
-5. Update `SOT.md` Recent Verified Checks if the check result matters for handoff.
+2. Add matching source metadata in `src/sources.js`.
+3. Add a scale anchor and mark whether it is measured, order-of-magnitude, or conceptual.
+4. Add at least one caveat if a normal viewer could read the visual literally.
+5. Run `node scripts/validate-data.js`, `node --check src/layers.js`, `node --check src/sources.js`, and `node --check src/app.js`.
+6. Update `SOT.md` Recent Verified Checks if the check result matters for handoff.

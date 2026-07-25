@@ -21,6 +21,7 @@
           <span>from fields to forms</span>
         </div>
       </div>
+      <span class="audit-status" id="auditStatus">checking sources</span>
       <nav class="jump-nav" aria-label="Layer shortcuts" id="jumpNav"></nav>
     </header>
 
@@ -44,9 +45,9 @@
             <button type="button" class="icon-button" id="nextLayer" aria-label="Next layer">
               <span aria-hidden="true">&rarr;</span>
             </button>
-            <button type="button" class="primary-button" id="playClimb">Climb</button>
+            <button type="button" class="primary-button" id="playClimb" aria-pressed="false">Climb</button>
             <label class="speed-control" for="speedRange">
-              <span>speed <output id="speedValue" for="speedRange">1.0x</output></span>
+              <span>climb speed <output id="speedValue" for="speedRange">1.0x</output></span>
               <input type="range" id="speedRange" min="0.25" max="3" value="1" step="0.25" />
             </label>
             <label class="truth-toggle" for="truthMode">
@@ -61,7 +62,19 @@
             </p>
             <p class="detail-kicker">scale anchor</p>
             <p id="detailScale"></p>
-            <p class="source-line" id="detailSources"></p>
+            <div class="source-line" id="detailSources">
+              <button
+                type="button"
+                class="source-toggle"
+                id="sourceToggle"
+                aria-expanded="false"
+                aria-controls="sourcePanel"
+              >
+                0 source anchors
+              </button>
+              <a href="SCIENCE_RESEARCH.md">research doc</a>
+            </div>
+            <div class="source-panel" id="sourcePanel" hidden></div>
             <p class="detail-kicker">stability rule</p>
             <p id="detailRule"></p>
             <p class="detail-caveat" id="detailCaveat" hidden></p>
@@ -73,6 +86,7 @@
           <div class="scale-track">
             <span id="scaleProgress"></span>
           </div>
+          <span id="ordersValue">0 orders outward</span>
           <span>today: ~13.8B yr</span>
         </div>
       </section>
@@ -80,6 +94,7 @@
       <section class="layer-stack" id="layers" aria-label="Bottom-up layers"></section>
     </main>
 
+    <script src="src/sources.js"></script>
     <script src="src/layers.js"></script>
     <script src="src/app.js"></script>
   </body>

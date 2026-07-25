@@ -84,6 +84,21 @@ button {
   min-width: 12rem;
 }
 
+.audit-status {
+  flex: 0 0 auto;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(244, 240, 231, 0.05);
+  font-size: 0.76rem;
+}
+
+.audit-status-warning {
+  color: var(--gold);
+  border-color: rgba(242, 197, 114, 0.45);
+}
+
 .brand-mark {
   display: grid;
   width: 2.15rem;
@@ -283,12 +298,69 @@ h1 {
 
 .source-line {
   margin-bottom: 0.9rem !important;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
 }
 
-.source-line a {
+.source-line a,
+.source-toggle,
+.source-item a {
   color: var(--green);
   text-decoration-color: rgba(115, 224, 169, 0.5);
   text-underline-offset: 0.18em;
+}
+
+.source-toggle {
+  padding: 0;
+  color: var(--green);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(115, 224, 169, 0.5);
+}
+
+.source-panel {
+  display: grid;
+  gap: 0.65rem;
+  margin: -0.25rem 0 0.9rem;
+}
+
+.source-item {
+  display: grid;
+  gap: 0.3rem;
+  padding-block: 0.55rem;
+  border-top: 1px solid var(--line);
+}
+
+.source-item div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.source-item strong,
+.source-item span,
+.source-item p,
+.source-item a {
+  font-size: 0.88rem;
+}
+
+.source-item span,
+.source-item p {
+  color: var(--muted);
+}
+
+.source-item p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.source-item-missing strong,
+.source-item-missing span {
+  color: var(--gold);
 }
 
 .detail-caveat {
@@ -332,9 +404,16 @@ h1 {
 
 .icon-button:focus-visible,
 .primary-button:focus-visible,
+.source-toggle:focus-visible,
 .jump-nav a:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
+}
+
+.icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  transform: none;
 }
 
 .scale-readout {
@@ -343,7 +422,7 @@ h1 {
   bottom: clamp(1rem, 4vw, 2.5rem);
   z-index: 2;
   display: grid;
-  grid-template-columns: auto minmax(8rem, 18vw) auto;
+  grid-template-columns: auto minmax(8rem, 18vw) auto auto;
   align-items: center;
   gap: 0.7rem;
   color: var(--muted);
@@ -437,6 +516,10 @@ h1 {
 
   .jump-nav {
     max-width: 52vw;
+  }
+
+  .audit-status {
+    display: none;
   }
 
   .jump-nav a {
