@@ -71,8 +71,8 @@ Status legend: `done`, `deferred`, `watch`, `pending-final`.
 | 48 | Reduced motion users may not want autoplay surprises. | Require explicit Climb click; keep no autoplay on load. | done |
 | 49 | Canvas animation depends on scroll, not infinite loop. | Preserve current draw-on-scroll model. | done |
 | 50 | Validation should not block casual viewing. | Warn and show status, do not throw. | done |
-| 51 | Commit should be scoped. | One batch commit after checks. | pending-final |
-| 52 | Git push should happen after successful commit. | Push after verification. | pending-final |
+| 51 | Commit should be scoped. | One batch commit after checks. | done |
+| 52 | Git push should happen after successful commit. | Push after verification. | done |
 | 53 | Final response should summarize key files/checks. | Report concise outcome. | pending-final |
 | 54 | Goal should close only when done. | Mark complete after push. | pending-final |
 | 55 | Do not hardcode machine-specific paths in YAIML. | Keep docs portable. | done |
@@ -80,4 +80,4 @@ Status legend: `done`, `deferred`, `watch`, `pending-final`.
 | 57 | Preserve existing human wording where useful. | Edit docs lightly. | done |
 | 58 | Run JS syntax checks. | `node --check`. | done |
 | 59 | Run diff whitespace check. | `git diff --check`. | done |
-| 60 | Re-check clean worktree after push. | `git status --short --branch`. | pending-final |
+| 60 | Re-check clean worktree after push. | `git status --short --branch`. | done |
