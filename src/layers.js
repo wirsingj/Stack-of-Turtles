@@ -1,0 +1,142 @@
+window.STACK_LAYERS = [
+  {
+    id: "fields",
+    nav: "Fields",
+    title: "Quantum fields",
+    scale: "10^-19 m",
+    accent: "#73e0a9",
+    thesis:
+      "Start with fields, not tiny billiard balls. Particles are stable excitations in fields we can measure.",
+    ingredients: ["electron field", "quark fields", "gauge fields"],
+    rule: "The bottom layer is a description boundary, not a claim that reality is made of little dots.",
+    caveat:
+      "This starts at the app's useful description boundary, not at a proven final substrate of reality.",
+    mode: "waves",
+  },
+  {
+    id: "particles",
+    nav: "Particles",
+    title: "Particles",
+    scale: "10^-18 m",
+    accent: "#7eb6ff",
+    thesis:
+      "Electrons can travel alone. Quarks show up through the bound states they make. Photons and gluons carry interactions.",
+    ingredients: ["electron", "up quark", "down quark", "photon", "gluon"],
+    rule: "Elementary means no smaller known parts in the Standard Model.",
+    caveat:
+      "Particle dots are visual handles. They are not little hard spheres moving through empty space.",
+    mode: "particles",
+  },
+  {
+    id: "hadrons",
+    nav: "Hadrons",
+    title: "Hadrons",
+    scale: "10^-15 m",
+    accent: "#f2c572",
+    thesis:
+      "Quarks and gluons lock into protons and neutrons. Most nucleon mass comes from field energy and motion, not bare quark mass.",
+    ingredients: ["proton: uud", "neutron: udd", "gluon field energy"],
+    rule: "Quarks are confined; the useful object at this scale is the bound pattern.",
+    caveat:
+      "The three labels are valence quarks. Real nucleons also involve gluons and transient quark-antiquark activity.",
+    mode: "hadrons",
+  },
+  {
+    id: "nuclei",
+    nav: "Nuclei",
+    title: "Nuclei",
+    scale: "10^-14 m",
+    accent: "#f38b6d",
+    thesis:
+      "Protons set the element. Neutrons tune stability. The strong force wins nearby while electric repulsion keeps score.",
+    ingredients: ["proton count", "neutron count", "isotopes"],
+    rule: "Change protons and the element changes; change neutrons and the isotope changes.",
+    caveat:
+      "The app simplifies nuclear forces. Stability depends on quantum structure, energy, and decay pathways.",
+    mode: "nuclei",
+  },
+  {
+    id: "atoms",
+    nav: "Atoms",
+    title: "Atoms",
+    scale: "10^-10 m",
+    accent: "#c49cff",
+    thesis:
+      "A charged nucleus shapes the electron states around it. Chemistry begins when those states fill and overlap.",
+    ingredients: ["nuclear charge", "electron configuration", "orbitals"],
+    rule: "The periodic table is mostly a map of electron structure.",
+    caveat:
+      "Orbit-like marks are a conceptual shorthand for electron states, not literal planet-style paths.",
+    mode: "atoms",
+  },
+  {
+    id: "molecules",
+    nav: "Molecules",
+    title: "Molecules",
+    scale: "10^-9 m",
+    accent: "#73e0a9",
+    thesis:
+      "Atoms share, borrow, and polarize electron density. Stable bonds turn element identity into shape and behavior.",
+    ingredients: ["covalent bonds", "ions", "polarity", "geometry"],
+    rule: "Molecules are not just atom piles; shape changes what they can do.",
+    caveat:
+      "Bond sticks are a map convention. Real bonding is electron density and energy, not rigid rods.",
+    mode: "molecules",
+  },
+  {
+    id: "polymers",
+    nav: "Polymers",
+    title: "Polymers",
+    scale: "10^-7 m",
+    accent: "#7eb6ff",
+    thesis:
+      "Repeating molecular units become scaffolds, membranes, proteins, and information-bearing chains.",
+    ingredients: ["lipids", "proteins", "RNA/DNA", "sugars"],
+    rule: "At this layer, sequence and folding start acting like machinery.",
+    caveat:
+      "This layer compresses many scales of biochemistry. Sequence, environment, and folding all matter.",
+    mode: "polymers",
+  },
+  {
+    id: "cells",
+    nav: "Cells",
+    title: "Cells",
+    scale: "10^-6 m",
+    accent: "#f2c572",
+    thesis:
+      "A cell is chemistry with a boundary, metabolism, repair, memory, and enough feedback to keep going.",
+    ingredients: ["membrane", "metabolism", "genetic memory", "feedback"],
+    rule: "Life is organization over time, not a single magic ingredient.",
+    caveat:
+      "This is not an origin-of-life claim. It names recurring features of living cellular systems.",
+    mode: "cells",
+  },
+  {
+    id: "organisms",
+    nav: "Organisms",
+    title: "Organisms",
+    scale: "10^-2 to 10^0 m",
+    accent: "#f38b6d",
+    thesis:
+      "Cells specialize and coordinate. Tissues, organs, senses, motion, and behavior become one moving system.",
+    ingredients: ["signaling", "tissues", "organs", "homeostasis"],
+    rule: "The parts matter, but the coordination is the new thing.",
+    caveat:
+      "Organisms are not just bigger cells. Development, regulation, and environment shape the whole.",
+    mode: "organisms",
+  },
+  {
+    id: "minds",
+    nav: "Minds",
+    title: "Minds",
+    scale: "10^0 m and outward",
+    accent: "#c49cff",
+    thesis:
+      "Matter starts modeling itself. Nervous systems, language, culture, and science become structures made of structures.",
+    ingredients: ["brains", "symbols", "tools", "shared models"],
+    rule: "The stack does not stop being physical when it becomes meaningful.",
+    caveat:
+      "This app does not solve consciousness. It only keeps mind and culture inside the physical stack.",
+    mode: "minds",
+  },
+];

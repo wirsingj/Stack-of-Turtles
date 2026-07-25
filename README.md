@@ -21,6 +21,7 @@ Then open `http://localhost:5173`.
 ```text
 index.html
 src/
+  layers.js
   app.js
   styles.css
 context/
@@ -35,10 +36,11 @@ context/
 - Treat each layer as a stable structure that makes the next layer possible.
 - Keep the science honest without burying the experience in caveats.
 - Make the app usable as a static web page before adding frameworks or hosting.
+- Keep layer content editable without digging through rendering code.
 
 ## Next Candidates
 
 - Add a layer editor backed by the YAIML schema.
-- Add optional "truth mode" annotations for caveats and scale disclaimers.
+- Add stronger truth mode annotations for caveats and scale disclaimers.
 - Add richer particle and molecule scenes with WebGL or Three.js.
 - Add hosting once the first narrative pass feels right.

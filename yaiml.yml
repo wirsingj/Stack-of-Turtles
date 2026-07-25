@@ -1,0 +1,27 @@
+yaiml: "0.2"
+
+project:
+  id: stack-of-turtles
+  name: Stack of Turtles
+
+documents:
+  sot:
+    path: SOT.md
+    title: SOT
+  architecture:
+    path: ARCHITECTURE.md
+    title: Architecture
+  maintainer:
+    path: MAINTAINER_GUIDE.md
+    title: Maintainer Guide
+
+supporting_documents:
+  app_context:
+    path: context/stack-of-turtles.yaiml
+    title: Stack of Turtles App Context
+  physics_notes:
+    path: context/physics-notes.md
+    title: Physics Notes
+  yaiml_notes:
+    path: context/yaiml.md
+    title: YAIML Context Format Notes

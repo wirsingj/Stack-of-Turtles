@@ -44,7 +44,16 @@
             <button type="button" class="icon-button" id="nextLayer" aria-label="Next layer">
               <span aria-hidden="true">&rarr;</span>
             </button>
+            <label class="truth-toggle" for="truthMode">
+              <input type="checkbox" id="truthMode" />
+              <span>truth mode</span>
+            </label>
           </div>
+          <aside class="layer-detail" id="layerDetail" aria-label="Current layer detail">
+            <p class="detail-kicker">stability rule</p>
+            <p id="detailRule"></p>
+            <p class="detail-caveat" id="detailCaveat" hidden></p>
+          </aside>
         </div>
 
         <div class="scale-readout" aria-hidden="true">
@@ -59,6 +68,7 @@
       <section class="layer-stack" id="layers" aria-label="Bottom-up layers"></section>
     </main>
 
+    <script src="src/layers.js"></script>
     <script src="src/app.js"></script>
   </body>
 </html>

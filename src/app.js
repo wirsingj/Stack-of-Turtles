@@ -1,125 +1,4 @@
-const layers = [
-  {
-    id: "fields",
-    nav: "Fields",
-    title: "Quantum fields",
-    scale: "10^-19 m",
-    accent: "#73e0a9",
-    thesis:
-      "Start with fields, not tiny billiard balls. Particles are stable excitations in fields we can measure.",
-    ingredients: ["electron field", "quark fields", "gauge fields"],
-    rule: "The bottom layer is a description boundary, not a claim that reality is made of little dots.",
-    mode: "waves",
-  },
-  {
-    id: "particles",
-    nav: "Particles",
-    title: "Particles",
-    scale: "10^-18 m",
-    accent: "#7eb6ff",
-    thesis:
-      "Electrons can travel alone. Quarks show up through the bound states they make. Photons and gluons carry interactions.",
-    ingredients: ["electron", "up quark", "down quark", "photon", "gluon"],
-    rule: "Elementary means no smaller known parts in the Standard Model.",
-    mode: "particles",
-  },
-  {
-    id: "hadrons",
-    nav: "Hadrons",
-    title: "Hadrons",
-    scale: "10^-15 m",
-    accent: "#f2c572",
-    thesis:
-      "Quarks and gluons lock into protons and neutrons. Most nucleon mass comes from field energy and motion, not bare quark mass.",
-    ingredients: ["proton: uud", "neutron: udd", "gluon field energy"],
-    rule: "Quarks are confined; the useful object at this scale is the bound pattern.",
-    mode: "hadrons",
-  },
-  {
-    id: "nuclei",
-    nav: "Nuclei",
-    title: "Nuclei",
-    scale: "10^-14 m",
-    accent: "#f38b6d",
-    thesis:
-      "Protons set the element. Neutrons tune stability. The strong force wins nearby while electric repulsion keeps score.",
-    ingredients: ["proton count", "neutron count", "isotopes"],
-    rule: "Change protons and the element changes; change neutrons and the isotope changes.",
-    mode: "nuclei",
-  },
-  {
-    id: "atoms",
-    nav: "Atoms",
-    title: "Atoms",
-    scale: "10^-10 m",
-    accent: "#c49cff",
-    thesis:
-      "A charged nucleus shapes the electron states around it. Chemistry begins when those states fill and overlap.",
-    ingredients: ["nuclear charge", "electron configuration", "orbitals"],
-    rule: "The periodic table is mostly a map of electron structure.",
-    mode: "atoms",
-  },
-  {
-    id: "molecules",
-    nav: "Molecules",
-    title: "Molecules",
-    scale: "10^-9 m",
-    accent: "#73e0a9",
-    thesis:
-      "Atoms share, borrow, and polarize electron density. Stable bonds turn element identity into shape and behavior.",
-    ingredients: ["covalent bonds", "ions", "polarity", "geometry"],
-    rule: "Molecules are not just atom piles; shape changes what they can do.",
-    mode: "molecules",
-  },
-  {
-    id: "polymers",
-    nav: "Polymers",
-    title: "Polymers",
-    scale: "10^-7 m",
-    accent: "#7eb6ff",
-    thesis:
-      "Repeating molecular units become scaffolds, membranes, proteins, and information-bearing chains.",
-    ingredients: ["lipids", "proteins", "RNA/DNA", "sugars"],
-    rule: "At this layer, sequence and folding start acting like machinery.",
-    mode: "polymers",
-  },
-  {
-    id: "cells",
-    nav: "Cells",
-    title: "Cells",
-    scale: "10^-6 m",
-    accent: "#f2c572",
-    thesis:
-      "A cell is chemistry with a boundary, metabolism, repair, memory, and enough feedback to keep going.",
-    ingredients: ["membrane", "metabolism", "genetic memory", "feedback"],
-    rule: "Life is organization over time, not a single magic ingredient.",
-    mode: "cells",
-  },
-  {
-    id: "organisms",
-    nav: "Organisms",
-    title: "Organisms",
-    scale: "10^-2 to 10^0 m",
-    accent: "#f38b6d",
-    thesis:
-      "Cells specialize and coordinate. Tissues, organs, senses, motion, and behavior become one moving system.",
-    ingredients: ["signaling", "tissues", "organs", "homeostasis"],
-    rule: "The parts matter, but the coordination is the new thing.",
-    mode: "organisms",
-  },
-  {
-    id: "minds",
-    nav: "Minds",
-    title: "Minds",
-    scale: "10^0 m and outward",
-    accent: "#c49cff",
-    thesis:
-      "Matter starts modeling itself. Nervous systems, language, culture, and science become structures made of structures.",
-    ingredients: ["brains", "symbols", "tools", "shared models"],
-    rule: "The stack does not stop being physical when it becomes meaningful.",
-    mode: "minds",
-  },
-];
+const layers = window.STACK_LAYERS;
 
 const canvas = document.getElementById("scaleCanvas");
 const ctx = canvas.getContext("2d");
@@ -132,11 +11,15 @@ const progress = document.getElementById("scaleProgress");
 const prevButton = document.getElementById("prevLayer");
 const nextButton = document.getElementById("nextLayer");
 const focusButton = document.getElementById("focusLayer");
+const truthMode = document.getElementById("truthMode");
+const detailRule = document.getElementById("detailRule");
+const detailCaveat = document.getElementById("detailCaveat");
 
 let activeIndex = 0;
 let canvasWidth = 0;
 let canvasHeight = 0;
 let particles = [];
+let showCaveats = false;
 
 function buildLayerMarkup() {
   layerStack.innerHTML = layers
@@ -217,6 +100,9 @@ function setActiveLayer(index) {
   title.textContent = layer.title;
   thesis.textContent = layer.thesis;
   scaleLabel.textContent = layer.scale;
+  detailRule.textContent = layer.rule;
+  detailCaveat.textContent = layer.caveat;
+  detailCaveat.hidden = !showCaveats;
   progress.style.width = `${(activeIndex / (layers.length - 1)) * 100}%`;
   document.documentElement.style.setProperty("--focus", layer.accent);
 
@@ -505,3 +391,13 @@ window.addEventListener("scroll", () => {
 prevButton.addEventListener("click", () => scrollToLayer(activeIndex - 1));
 nextButton.addEventListener("click", () => scrollToLayer(activeIndex + 1));
 focusButton.addEventListener("click", () => scrollToLayer(activeIndex));
+truthMode.addEventListener("change", () => {
+  showCaveats = truthMode.checked;
+  setActiveLayer(activeIndex);
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === "ArrowLeft") scrollToLayer(activeIndex - 1);
+  if (event.key === "ArrowRight") scrollToLayer(activeIndex + 1);
+});
