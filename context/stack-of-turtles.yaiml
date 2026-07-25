@@ -1,0 +1,120 @@
+yaiml: 0.1
+kind: app_context
+project:
+  name: Stack of Turtles
+  repo: wirsingj/Stack-of-Turtles
+  working_title: Stack of Turtles
+  tagline: scroll outward through the layers of reality
+  medium: static_html5_app
+  first_principle: Start at the lowest descriptive layer, then scroll outward as stable structures make larger structures possible.
+
+audience:
+  primary:
+    - philosophy-curious science nerds
+    - armchair physics readers
+    - students who know the Standard Model outline but want scale intuition
+  tone:
+    - curious
+    - playful
+    - scientifically careful
+    - anti-textbook-but-not-anti-accuracy
+
+experience_contract:
+  scroll_direction: outward
+  first_screen: the usable scale experience, not a marketing page
+  core_feeling:
+    - reality assembling upward
+    - each stable layer becoming the floor for the next
+    - the bottom of the stack feeling stranger than ordinary objects
+  avoid:
+    - top-down dissection framing
+    - "everything is just" reductionism
+    - pretending conceptual visuals are exact simulations
+    - decorative visuals unrelated to scale or structure
+
+science_contract:
+  stance: conceptual_assembly_map
+  not:
+    - full Standard Model simulator
+    - exact chemistry engine
+    - origin-of-life proof
+    - consciousness explanation
+  accuracy_rules:
+    - Protons define element identity through nuclear charge.
+    - Neutrons define isotope and affect nuclear stability.
+    - Electrons are elementary in the Standard Model.
+    - Quarks are confined in ordinary conditions.
+    - Proton and neutron mass mostly comes from QCD field energy and dynamics.
+    - Chemistry is governed primarily by electron configuration and bonding.
+    - Emergence should be framed as new organization, not magic.
+  recurring_caveat: The app shows stable conceptual relationships, not literal object sizes or real-time dynamics.
+
+narrative_spine:
+  - id: fields
+    scale: 10^-19 m
+    claim: Fields are the base language; particles are excitations.
+    unlocks: measurable elementary particles
+  - id: particles
+    scale: 10^-18 m
+    claim: Electrons, quarks, photons, and gluons carry the Standard Model story into structure.
+    unlocks: bound states
+  - id: hadrons
+    scale: 10^-15 m
+    claim: Quarks and gluons bind into protons and neutrons.
+    unlocks: nuclei
+  - id: nuclei
+    scale: 10^-14 m
+    claim: Proton count creates element identity; neutrons tune stability.
+    unlocks: atoms
+  - id: atoms
+    scale: 10^-10 m
+    claim: Nuclear charge shapes electron states.
+    unlocks: chemistry
+  - id: molecules
+    scale: 10^-9 m
+    claim: Electron behavior makes bonds, shapes, and material properties.
+    unlocks: large molecular systems
+  - id: polymers
+    scale: 10^-7 m
+    claim: Repeating and folding molecules become membranes, proteins, and information chains.
+    unlocks: cells
+  - id: cells
+    scale: 10^-6 m
+    claim: Bounded chemistry with memory and feedback becomes living process.
+    unlocks: multicellular coordination
+  - id: organisms
+    scale: 10^-2_to_10^0 m
+    claim: Specialized cells coordinate into bodies and behavior.
+    unlocks: mind-bearing systems
+  - id: minds
+    scale: 10^0_m_and_outward
+    claim: Matter begins modeling itself through nervous systems, symbols, tools, and culture.
+    unlocks: shared reality models
+
+data_model:
+  layer:
+    required:
+      - id
+      - title
+      - scale
+      - thesis
+      - ingredients
+      - rule
+      - visual_mode
+    optional:
+      - caveats
+      - suggested_interactions
+      - source_notes
+
+roadmap:
+  tonight:
+    - static scroll app
+    - canvas layer visuals
+    - YAIML context
+    - first git commit
+  next:
+    - add source panel
+    - add truth-mode caveats
+    - add editable layer data
+    - add WebGL depth scenes
+    - publish hosted build

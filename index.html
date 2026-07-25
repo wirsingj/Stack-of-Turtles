@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Stack of Turtles is a bottom-up HTML5 app for scrolling outward from fields to minds."
+    />
+    <title>Stack of Turtles</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#layers">Skip to layers</a>
+
+    <header class="topbar" aria-label="App header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <div>
+          <strong>Stack of Turtles</strong>
+          <span>from fields to forms</span>
+        </div>
+      </div>
+      <nav class="jump-nav" aria-label="Layer shortcuts" id="jumpNav"></nav>
+    </header>
+
+    <main>
+      <section class="stage" aria-label="Scroll outward visualization">
+        <canvas id="scaleCanvas" aria-hidden="true"></canvas>
+        <div class="stage-shade" aria-hidden="true"></div>
+
+        <div class="hud" aria-live="polite">
+          <p class="eyebrow" id="scaleLabel">10^-19 m</p>
+          <h1 id="layerTitle">Quantum fields</h1>
+          <p id="layerThesis">
+            The app starts with fields, then scrolls outward as stable structure
+            becomes the floor for the next layer.
+          </p>
+          <div class="controls" aria-label="Layer controls">
+            <button type="button" class="icon-button" id="prevLayer" aria-label="Previous layer">
+              <span aria-hidden="true">&larr;</span>
+            </button>
+            <button type="button" class="primary-button" id="focusLayer">Focus layer</button>
+            <button type="button" class="icon-button" id="nextLayer" aria-label="Next layer">
+              <span aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="scale-readout" aria-hidden="true">
+          <span>smallest described</span>
+          <div class="scale-track">
+            <span id="scaleProgress"></span>
+          </div>
+          <span>largest assembled</span>
+        </div>
+      </section>
+
+      <section class="layer-stack" id="layers" aria-label="Bottom-up layers"></section>
+    </main>
+
+    <script src="src/app.js"></script>
+  </body>
+</html>
